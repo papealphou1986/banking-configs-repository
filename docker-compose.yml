@@ -1,0 +1,22 @@
+services:
+  banking-system-configs-service:
+    build: ./configs-service
+    container_name: banking-system-configs-service
+    env_file: 
+      - ./.env
+    ports:
+      - "8011:8011"
+    environment:
+      - DISCOVERY_SERVICE_URL=${ENV_DISCOVERY_SERVICE_URL}
+    depends_on:
+      banking-system-discovery-service:
+        condition: service_healthy
+    networks:
+      - banking_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "${CONFIG_SERVICE_HEALTH_URL}"]
+      interval: 10s
+      timeout: 20s
+      retries: 5
+      start_period: 90s
+  
