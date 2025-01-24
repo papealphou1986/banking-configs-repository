@@ -1,0 +1,6 @@
+# MySQL Database Configuration
+spring:
+  datasource:
+    url: jdbc:mysql://${CUSTOMER_DATABASE_HOST}:${CUSTOMER_DATABASE_PORT}/${CUSTOMER_DATABASE_NAME}
+    username: ${CUSTOMER_DATABASE_USER}
+    password: ${CUSTOMER_DATABASE_PASSWORD}

@@ -1,0 +1,25 @@
+# Configuration Git repository URI for the Config Server
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/papealphou1986/banking-configs-repository
+          default-label: main
+          #username: YOUR_GITHUB_USERNAME
+          #password: YOUR_GITHUB_ACCESS_TOKEN
+    discovery:
+      enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://banking-system-discovery-service:8761/eureka/ # Replace with your Eureka server's URL
+    fetch-registry: true # Fetch registry to discover services
+    register-with-eureka: true # Register the Gateway with Eureka
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+    registry-fetch-interval: 5
+  instance:
+    prefer-ip-address: false # Use the service name for discovery instead of the IP
+    instance-id: ${spring.application.name}:${server.port} # Unique ID for each instance

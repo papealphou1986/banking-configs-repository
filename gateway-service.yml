@@ -1,0 +1,42 @@
+
+spring:
+  config:
+    import: optional:configserver:${CONFIG_SERVICE_URL:http://banking-system-configs-service:8011}
+  cloud:
+    config:
+          enabled=true:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Enables dynamic routing based on discovery
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins:
+              - "http://localhost:4200"
+              - "http://192.168.154.210/"
+            allowed-headers:
+              - "*"
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+
+logging:
+  level:
+    org.springframework.cloud.client.loadbalancer: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://banking-system-discovery-service:8761/eureka/ # Replace with your Eureka server's URL
+    fetch-registry: true # Fetch registry to discover services
+    register-with-eureka: true # Register the Gateway with Eureka
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+    registry-fetch-interval: 5
+  instance:
+    prefer-ip-address: false # Use the service name for discovery instead of the IP
+    instance-id: ${spring.application.name}:${server.port} # Unique ID for each instance

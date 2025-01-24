@@ -1,0 +1,7 @@
+# PostgreSQL Database Configuration
+spring:
+  datasource:
+    url: jdbc:postgresql://account_service_db:5434/account_sdb
+    username: alphou
+    password: alphou
+

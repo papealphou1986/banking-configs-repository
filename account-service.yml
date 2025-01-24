@@ -1,0 +1,32 @@
+# Hibernate (JPA) Configuration
+spring:
+  config:
+    import: optional:configserver:${CONFIG_SERVICE_URL:http://banking-system-configs-service:8011}
+  cloud:
+    config:
+      enabled=true:
+    discovery:
+      enabled=true:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://banking-system-discovery-service:8761/eureka/ # Replace with your Eureka server's URL
+    fetch-registry: true # Fetch registry to discover services
+    register-with-eureka: true # Register the Gateway with Eureka
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+    registry-fetch-interval: 5
+  instance:
+    prefer-ip-address: false # Use the service name for discovery instead of the IP
+    instance-id: ${spring.application.name}:${server.port} # Unique ID for each instance
+
